@@ -1,46 +1,67 @@
 import DOM from './DOM'
 import './style.css';
 
-const content = document.querySelector('#content');
+let projects = localStorage.getItem('projects') ? JSON.parse(localStorage.getItem('projects')) : [];
 
-const Todo = (() => {
+const ProjectState = (title) => {
+  const tasks = [];
+  return { title, tasks };
+}
+const TaskState = (title) => {
+  let priority = 'urgent';
+  let dueDate = 'today';
+  return { title, priority, dueDate };
+}
 
-  const _NavBar = (()=> {
-    const categories = ['Inbox', 'Today', 'This Week']; // convert to objects
-    const _loadCategories = (parent) => {
-      const categoriesContainer = DOM.createContainer(parent, 'categories');
-        categories.forEach(category => {
-          DOM.createButton(categoriesContainer, category);
-        })
-    }
-    const _loadProjects = (parent) => {
-      const projectsContainer = DOM.createContainer(parent, 'projects');
-        DOM.createHeading(projectsContainer, 'h2', 'Projects');
-        DOM.createButton(projectsContainer, '+ Add Project');
-    }
-    const load = (parent) => {
-      const container = DOM.createContainer(parent, 'navbar');
-      _loadCategories(container);
-      _loadProjects(container);
-    }
-
-    return { load };
-  })();
-
-  const _Main = (() => {
-    const load = (parent) => {
-    }
-    
-    return { load };
-  })();
-  
-  const load = (parent) => {
-    _NavBar.load(parent);
-    // const navbar = DOM.createContainer(parent, 'navbar');
-    // const main = DOM.createContainer(parent, 'main');
+const Deleter = (array, state) => ({
+  deleteSelf: () => {
+    array.splice(array.indexOf(state));
   }
+})
+const Creator = (state) => ({
+  createTask: (title) => {
+    const task = TaskState(title)
+    state.tasks.push(task);
+    return task;
+  }
+})
+const TitleChanger = (state) => ({
+  changeTitle: (text) => {
+    state.title = text;
+  }
+})
+const DateChanger = (state) => ({
+  changeDueDate: (text) => {
+    state.dueDate = text;
+  }
+})
+const PriorityChanger = (state) => ({
+  changePriority: (text) => {
+    state.priority;
+  }
+})
 
-  return { load };
+const composeObjects = (() => {
+  projects.forEach(ProjectState => {
+    if(ProjectState.tasks.length != 0) {
+      ProjectState.tasks.forEach(TaskState => {
+        return Object.assign(
+          TaskState,
+          Deleter(ProjectState.tasks, TaskState),
+          TitleChanger(TaskState),
+          DateChanger(TaskState),
+          PriorityChanger(TaskState),
+        )
+      })
+    }
+    return Object.assign(
+      ProjectState, 
+      Deleter(projects, ProjectState),
+      Creator(ProjectState),
+      TitleChanger(ProjectState),
+    );
+  })
 })();
 
-Todo.load(content);
+
+
