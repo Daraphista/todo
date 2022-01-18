@@ -1,0 +1,27 @@
+* {
+  font-family: 'Roboto';
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+}
+
+/* content */
+
+#content {
+  display: flex;
+  min-width: 100%;
+}
+
+.navbar, .main {
+  border: 1px solid black;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+}
