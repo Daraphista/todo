@@ -1,9 +1,14 @@
-import DOM from './DOM'
 import './style.css';
+import Todo from './ui';
 
-let projects = localStorage.getItem('projects') ? JSON.parse(localStorage.getItem('projects')) : [];
+const content = document.querySelector('#content');
+Todo.load(content);
 
 const ProjectState = (title) => {
+  const tasks = [];
+  return { title, tasks };
+}
+const CategoryState = (title) => {
   const tasks = [];
   return { title, tasks };
 }
@@ -12,6 +17,25 @@ const TaskState = (title) => {
   let dueDate = 'today';
   return { title, priority, dueDate };
 }
+
+let projects = localStorage.getItem('projects') 
+? JSON.parse(localStorage.getItem('projects')) 
+: [];
+
+let categories = localStorage.getItem('categories') 
+? JSON.parse(localStorage.getItem('categories')) 
+: [
+  CategoryState('Inbox'), 
+  CategoryState('Today'), 
+  CategoryState('This week')
+];
+
+console.log('%c Categories', 'color: orange;');
+console.table(categories);
+console.log('%c Projects', 'color: green;');
+console.table(projects);
+console.log('%c Localstorage', 'color: pink');
+console.table(localStorage);
 
 const Deleter = (array, state) => ({
   deleteSelf: () => {
@@ -63,5 +87,9 @@ const composeObjects = (() => {
   })
 })();
 
+// const website = ProjectState('website');
+// projects.push(website)
 
-
+localStorage.setItem('projects', JSON.stringify(projects));
+localStorage.setItem('categories', JSON.stringify(categories));
+// localStorage.clear();
