@@ -10,6 +10,15 @@
   color: rgb(255, 255, 255);
   font-size: 1.25rem;
   box-sizing: border-box;
+  border: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+*:focus {
+  outline: none;
 }
 
 body {
@@ -26,6 +35,17 @@ button {
   text-align: left;
   cursor: pointer;
   transition: 150ms;
+}
+
+input {
+  color: rgb(44, 44, 44);
+  /* font-size: 1rem; */
+  padding: .25rem;
+  width: 100%;
+}
+
+button.selected {
+  background-color: #454545;
 }
 
 button:hover {
@@ -72,8 +92,71 @@ h2 {
   gap: 1.4375rem;
 }
 
+.navbar button {
+  display: flex;
+  align-items: center;
+}
+
 .navbar button:hover {
   background-color: #4F4F4F;
+}
+
+.navbar button i {
+  display: none;
+  transition: 150ms;
+}
+
+.navbar button:hover i{
+  display: block;
+  margin-left: auto;
+  font-size: 1rem;
+  color: rgb(253, 80, 80);
+}
+
+.navbar button.add {
+  position: relative;
+  transition: none;
+}
+
+.navbar button.add.activated {
+  padding-inline: 0;
+  min-height: 50px;
+}
+
+.navbar button.add.activated:hover {
+  background-color: #ffffff00;
+}
+
+.navbar button.add.activated span {
+  display: none;
+}
+
+.navbar button.add form {
+  display: none;
+}
+
+.navbar button.add.activated form {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: .25rem;
+}
+
+.navbar button.add input {
+  width: 90%;
+  border-radius: 50rem;
+}
+
+.navbar button.add .confirmation {
+  border-radius: 50rem;
+  background-color: #0066FF;
+  /* min-height: 34px; */
+  min-width: 40px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .navbar section {
@@ -101,4 +184,92 @@ h2 {
   width: min(70%);
   padding-block: 8%;
   gap: 2rem;
+}
+
+.main section .task {
+  display: flex;
+  align-items: center;
+  border-radius: 0.1875rem;
+  cursor: pointer;
+  gap: .5rem;
+  padding-inline: 1rem;
+  padding-block: .5rem;
+  transition: 150ms;
+}
+
+.main section .task:hover {
+  background-color: #454545;
+  transform: translateY(-.25rem);
+}
+
+.main section .task .date {
+  margin-left: auto;
+  position: relative;
+}
+
+.main section .task .date input {
+  display: none;
+}
+
+.main section .task .date.revealed span {
+  display: none;
+}
+
+.main section .task .date.revealed input {
+  display: flex;
+  min-width: none;width: 10rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  font-size: 1rem;
+  border-radius: 50rem;
+  padding: .25rem;
+}
+
+.main section button.add {
+  position: relative;
+  transition: none;
+}
+
+.main section button.add.activated {
+  padding-inline: 0;
+  min-height: 50px;
+}
+
+.main section button.add.activated:hover {
+  background-color: #ffffff00;
+}
+
+.main section button.add.activated span {
+  display: none;
+}
+
+.main section button.add form {
+  display: none;
+}
+
+.main section button.add.activated form {
+  position: absolute;
+  min-width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: .25rem;
+}
+
+.main section button.add input {
+  width: 100%;
+  border-radius: 50rem;
+}
+
+.main section button.add .confirmation {
+  border-radius: 50rem;
+  background-color: #0066FF;
+  /* min-height: 34px; */
+  min-width: 40px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

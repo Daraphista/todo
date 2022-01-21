@@ -41,8 +41,9 @@ const DOM = (() => {
 
     return link;
   }
-  const createSpan = (parent, ...classNames) => {
+  const createSpan = (parent, text, ...classNames) => {
     const span = document.createElement('span');
+    span.textContent = text;
     addClassNames(span, ...classNames);
     parent.appendChild(span);
 
@@ -85,29 +86,33 @@ const DOM = (() => {
     iFrame.loading = loading;
     parent.appendChild(iFrame);
   }
-  const createForm = (parent, ...inputs) => {
+  const createInput = (parent, placeholder, id, type) => {
+    const input = document.createElement('input');
+    input.id = id;
+    input.type = type;
+    input.placeholder = placeholder;
+    parent.appendChild(input)
+
+    return input;
+  }
+  const createForm = (parent) => {
     const form = document.createElement('form');
     parent.appendChild(form);
 
-    inputs.forEach(inputObj => {
-      const label = document.createElement('label');
-      label.setAttribute('for', inputObj.id);
-      label.textContent = inputObj.labelText;
-      form.appendChild(label);
-
-      const input = document.createElement('input');
-      input.type = inputObj.type;
-      input.id = inputObj.id;
-      label.appendChild(input);
-    })
+    return form;
   }
   const createButton = (parent, text, ...classNames) => {
     const button = document.createElement('button');
     button.textContent = text;
+    button.type = 'button';
     addClassNames(button, ...classNames);
     parent.appendChild(button);
 
     return button;
+  }
+  const removeElement = (element) => {
+    const parent = element.parent;
+    parent.removeChild(element);
   }
 
   return {
@@ -122,8 +127,10 @@ const DOM = (() => {
   createImage,
   createIcon,
   createIframe,
+  createInput,
   createForm,
   createButton,
+  removeElement,
   }
 })();
 
